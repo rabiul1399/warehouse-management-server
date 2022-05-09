@@ -40,6 +40,13 @@ async function run(){
         res.send('Hero mets hero ku')
     })
 
+    //POST 
+    app.post('/product',async(res,req)=>{
+        const newProduct=req.body;
+        const result = await productCollection.insertOne(newProduct);
+        res.send(result);
+    })
+
 
     }
     finally {
