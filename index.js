@@ -37,11 +37,38 @@ async function run(){
     })
 
     //POST 
-    app.post('/product',async(res,req)=>{
+    app.post('/product',async(req,res)=>{
         const newProduct=req.body;
-        const result = await productCollection.insertOne(newProduct);
+        const result = await productCollection.insertOne(newProduct)
         res.send(result);
     })
+
+    //Delete Product
+    app.delete('/product/:id',async(req,res) =>{
+        const id = req.params.id;
+        const query = {_id: ObjectId(id)};
+        const result = await productCollection.deleteOne(query);
+        res.send(result);
+
+    })
+
+    //UpDate Quantity
+    app.put('/product/:id',async (req,res) =>{
+        const id =req.params.id;
+        const updateUser = req.body;
+        const filter = {_id: ObjectId(id) };
+        const options = { upsert: true };
+        const updateDoc = {
+            $set: {
+              
+              Quantity:updateUser.quantity,
+            },
+          };
+        const result = await productCollection.updateOne(filter, updateDoc, options);
+        res.send(result)
+    })
+
+
 
 
     }
