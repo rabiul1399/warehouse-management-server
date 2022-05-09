@@ -36,6 +36,10 @@ async function run(){
         res.send(product);
     })
 
+    app.get('/hero', (req,res) =>{
+        res.send('Hero mets hero ku')
+    })
+
 
     }
     finally {
